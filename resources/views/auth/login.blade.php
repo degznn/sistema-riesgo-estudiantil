@@ -10,7 +10,7 @@
                 <h1 class="h4 mb-1">Sistema de Monitoreo</h1>
                 <p class="text-muted mb-4">Ingrese con su correo institucional Tecsup.</p>
 
-                <form action="{{ route('login.store') }}" method="POST">
+                <form action="/login" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">Correo institucional</label>
