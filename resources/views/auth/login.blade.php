@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Login')
 
@@ -13,7 +13,7 @@
         background: #eef8ff;
         display: grid;
         place-items: center;
-        padding: 38px 18px;
+        padding: 42px 18px;
         font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
@@ -31,7 +31,7 @@
 
     .login-visual {
         position: relative;
-        background: linear-gradient(135deg, #f7fcff 0%, #eaf6ff 100%);
+        background: linear-gradient(135deg, #f7fcff 0%, #e9f6ff 100%);
         display: grid;
         place-items: center;
         padding: 48px;
@@ -43,41 +43,66 @@
         content: "";
         position: absolute;
         border-radius: 999px;
-        background: rgba(159, 213, 247, .28);
+        background: rgba(159, 213, 247, .32);
     }
 
     .login-visual::before {
-        width: 260px;
-        height: 260px;
-        top: -88px;
+        width: 230px;
+        height: 230px;
+        top: -86px;
         right: 120px;
     }
 
     .login-visual::after {
-        width: 360px;
-        height: 360px;
-        left: 80px;
-        bottom: 86px;
+        width: 420px;
+        height: 420px;
+        left: 60px;
+        bottom: 48px;
     }
 
-    .soft-shape {
+    .dot-pattern {
         position: absolute;
-        width: 230px;
-        height: 360px;
-        right: 46px;
-        bottom: -96px;
-        border-radius: 120px;
-        background: rgba(199, 231, 251, .42);
-        transform: rotate(-24deg);
+        top: 112px;
+        left: 70px;
+        width: 120px;
+        height: 120px;
+        z-index: 1;
+        background-image: radial-gradient(#8bbef1 3px, transparent 3px);
+        background-size: 22px 22px;
+        opacity: .85;
+    }
+
+    .circle-small,
+    .circle-bottom {
+        position: absolute;
+        border-radius: 999px;
+        background: rgba(117, 181, 226, .36);
+        z-index: 1;
+    }
+
+    .circle-small {
+        width: 58px;
+        height: 58px;
+        right: 86px;
+        top: 250px;
+    }
+
+    .circle-bottom {
+        width: 210px;
+        height: 210px;
+        right: -36px;
+        bottom: -84px;
     }
 
     .education-image {
         position: relative;
         z-index: 2;
-        width: min(88%, 600px);
-        max-height: 560px;
+        width: 80%;
+        max-width: 540px;
+        max-height: 80%;
         object-fit: contain;
-        filter: drop-shadow(0 22px 22px rgba(11, 61, 115, .08));
+        border-radius: 18px;
+        filter: drop-shadow(0 24px 26px rgba(11, 61, 115, .12));
     }
 
     .login-form-panel {
@@ -93,37 +118,38 @@
         text-align: center;
     }
 
-    .login-web {
-        color: #5f6f83;
-        font-size: .88rem;
-        font-weight: 600;
-        margin-bottom: 44px;
+    .login-brand-icon {
+        width: 112px;
+        height: 112px;
+        margin: 0 auto 26px;
+        border-radius: 28px;
+        display: grid;
+        place-items: center;
+        color: #006bc7;
+        background: linear-gradient(135deg, #f5fbff 0%, #e9f5ff 100%);
+        box-shadow: 0 18px 34px rgba(0, 107, 199, .12);
     }
 
-    .login-logo {
-        width: 260px;
-        max-width: 72%;
-        height: auto;
-        margin-bottom: 34px;
+    .login-brand-icon i {
+        font-size: 4.6rem;
+        line-height: 1;
     }
 
     .login-title {
         color: #0c1d35;
-        font-size: clamp(1.55rem, 2.2vw, 2.2rem);
-        line-height: 1.25;
+        font-size: clamp(1.7rem, 2.4vw, 2.35rem);
+        line-height: 1.18;
         font-weight: 800;
         letter-spacing: 0;
-        text-transform: uppercase;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
     }
 
     .login-subtitle {
-        color: #0876c9;
-        font-size: 1.18rem;
-        font-weight: 700;
+        color: #006bc7;
+        font-size: 1.22rem;
+        font-weight: 800;
         letter-spacing: 0;
-        text-transform: uppercase;
-        margin-bottom: 38px;
+        margin-bottom: 42px;
     }
 
     .login-field {
@@ -138,13 +164,13 @@
         transform: translateY(-50%);
         display: grid;
         place-items: center;
-        color: #0876c9;
         z-index: 2;
     }
 
     .login-field-icon {
         left: 22px;
-        font-size: 1.25rem;
+        color: #006bc7;
+        font-size: 1.28rem;
     }
 
     .password-toggle {
@@ -157,14 +183,14 @@
     }
 
     .login-input {
-        height: 64px;
+        height: 66px;
         border-radius: 10px;
-        border: 1.6px solid #7cbcf0;
+        border: 1.6px solid #c8d6e6;
         padding: 0 58px;
         color: #182336;
         font-size: 1rem;
         font-weight: 600;
-        box-shadow: 0 8px 20px rgba(8, 118, 201, .05);
+        box-shadow: 0 8px 20px rgba(8, 118, 201, .04);
         transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
     }
 
@@ -204,12 +230,12 @@
 
     .login-button {
         width: 100%;
-        min-height: 66px;
+        min-height: 68px;
         border: 0;
         border-radius: 10px;
-        background: linear-gradient(135deg, #0a89dc 0%, #006bc7 100%);
+        background: linear-gradient(135deg, #087ce0 0%, #0066cb 100%);
         color: #ffffff;
-        font-size: 1.28rem;
+        font-size: 1.3rem;
         font-weight: 800;
         box-shadow: 0 16px 26px rgba(0, 107, 199, .22);
         transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
@@ -247,21 +273,17 @@
         }
 
         .login-visual {
-            min-height: 280px;
-            padding: 28px;
+            min-height: 320px;
+            padding: 30px;
         }
 
         .education-image {
-            width: min(70%, 360px);
+            width: min(62%, 310px);
             max-height: 260px;
         }
 
         .login-form-panel {
-            padding: 34px 26px 42px;
-        }
-
-        .login-web {
-            margin-bottom: 28px;
+            padding: 36px 26px 44px;
         }
     }
 
@@ -275,31 +297,38 @@
         }
 
         .login-visual {
-            min-height: 190px;
+            min-height: 220px;
             padding: 18px;
         }
 
         .education-image {
-            width: min(76%, 260px);
+            width: min(68%, 220px);
             max-height: 180px;
+            border-radius: 14px;
         }
 
         .login-form-panel {
-            padding: 26px 18px 30px;
+            padding: 28px 18px 32px;
         }
 
-        .login-logo {
-            width: 205px;
-            margin-bottom: 24px;
+        .login-brand-icon {
+            width: 82px;
+            height: 82px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+        }
+
+        .login-brand-icon i {
+            font-size: 3.35rem;
         }
 
         .login-title {
-            font-size: 1.25rem;
+            font-size: 1.38rem;
         }
 
         .login-subtitle {
             font-size: 1rem;
-            margin-bottom: 28px;
+            margin-bottom: 30px;
         }
 
         .login-input {
@@ -323,17 +352,17 @@
 <div class="login-page">
     <section class="login-card" aria-label="Inicio de sesion institucional">
         <div class="login-visual">
-            <span class="soft-shape"></span>
-            <img class="education-image" src="{{ asset('images/login-illustration.png') }}" alt="Ilustracion educativa">
+            <span class="dot-pattern"></span>
+            <span class="circle-small"></span>
+            <span class="circle-bottom"></span>
+            <img class="education-image" src="{{ asset('images/login/left-illustration.png') }}" alt="Ilustracion institucional de seguridad academica">
         </div>
 
         <div class="login-form-panel">
             <div class="login-form-inner">
-                <div class="login-web">
-                    <i class="bi bi-globe2 me-2"></i>www.tecsup.edu.pe
+                <div class="login-brand-icon" aria-hidden="true">
+                    <i class="bi bi-shield-fill-check"></i>
                 </div>
-
-                <img class="login-logo" src="{{ asset('images/login-reference.png') }}" alt="Tecsup">
 
                 <h1 class="login-title">Sistema de Monitoreo de Riesgo Estudiantil</h1>
                 <div class="login-subtitle">Panel Institucional</div>
@@ -361,7 +390,7 @@
                             name="password"
                             id="passwordInput"
                             class="form-control login-input @error('password') is-invalid @enderror"
-                            placeholder="Contrasena"
+                            placeholder="Contrase&ntilde;a"
                             autocomplete="current-password"
                             required
                         >
