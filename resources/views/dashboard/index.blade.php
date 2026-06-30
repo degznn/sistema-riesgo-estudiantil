@@ -4,58 +4,94 @@
 
 @section('content')
 <style>
+    .dashboard-shell {
+        display: grid;
+        gap: 20px;
+    }
+
     .page-title {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
         gap: 16px;
-        margin-bottom: 18px;
+        padding: 4px 0 2px;
     }
 
     .page-title h1 {
-        font-size: clamp(1.45rem, 2vw, 2rem);
+        font-size: clamp(1.5rem, 2vw, 2.1rem);
         font-weight: 800;
         margin: 0;
         color: #0b3d73;
     }
 
+    .page-title p {
+        max-width: 720px;
+    }
+
+    .dashboard-action {
+        border: 0;
+        border-radius: 12px;
+        padding: .72rem 1rem;
+        box-shadow: 0 12px 24px rgba(11, 61, 115, .18);
+        background: linear-gradient(135deg, #0b69c7 0%, #0b3d73 100%);
+        font-weight: 700;
+    }
+
     .filter-panel {
-        background: #fff;
+        background: rgba(255, 255, 255, .96);
         border: 1px solid #d9e2ec;
-        border-radius: 8px;
-        padding: 18px;
-        margin-bottom: 18px;
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 14px 34px rgba(11, 61, 115, .06);
     }
 
     .kpi-card {
         position: relative;
         overflow: hidden;
-        min-height: 136px;
+        min-height: 148px;
+        border: 0;
+        border-radius: 18px;
+        box-shadow: 0 18px 36px rgba(11, 61, 115, .08);
         animation: riseIn .45s ease both;
+        transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .kpi-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 24px 46px rgba(11, 61, 115, .13);
     }
 
     .kpi-card::after {
         content: "";
         position: absolute;
-        inset: auto -34px -46px auto;
-        width: 120px;
-        height: 120px;
+        inset: auto -40px -52px auto;
+        width: 136px;
+        height: 136px;
         border-radius: 50%;
-        background: rgba(15, 159, 110, .12);
+        background: rgba(8, 118, 201, .10);
+    }
+
+    .kpi-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 4px;
+        background: linear-gradient(90deg, #0b3d73, #0f9f6e);
     }
 
     .kpi-icon {
-        width: 46px;
-        height: 46px;
-        border-radius: 8px;
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
         display: grid;
         place-items: center;
         color: #fff;
-        font-size: 1.25rem;
+        font-size: 1.32rem;
+        box-shadow: 0 12px 22px rgba(11, 61, 115, .15);
     }
 
     .kpi-value {
-        font-size: 2rem;
+        font-size: 2.15rem;
         font-weight: 800;
         color: #101828;
         line-height: 1;
@@ -74,11 +110,27 @@
     .bg-slate { background: #475467; }
 
     .chart-card {
-        min-height: 360px;
+        min-height: 372px;
+        border: 0;
+        border-radius: 18px;
+        box-shadow: 0 18px 36px rgba(11, 61, 115, .08);
     }
 
     .chart-box {
-        height: 285px;
+        height: 292px;
+        padding-top: 8px;
+    }
+
+    .panel-badge {
+        border-radius: 999px;
+        padding: .45rem .7rem;
+        font-weight: 700;
+    }
+
+    .table-card {
+        border: 0;
+        border-radius: 18px;
+        box-shadow: 0 18px 36px rgba(11, 61, 115, .08);
     }
 
     .table-toolbar {
@@ -93,6 +145,23 @@
     .search-box {
         max-width: 360px;
         flex: 1 1 240px;
+    }
+
+    .search-box .input-group-text,
+    .search-box .form-control,
+    .filter-panel .form-select {
+        border-radius: 12px;
+    }
+
+    .filter-panel .form-select {
+        border-color: #d9e2ec;
+        min-height: 44px;
+    }
+
+    .filter-panel .form-select:focus,
+    .search-box .form-control:focus {
+        border-color: #0b69c7;
+        box-shadow: 0 0 0 .2rem rgba(11, 105, 199, .12);
     }
 
     .sortable {
@@ -116,6 +185,12 @@
         background: #f7fbff;
     }
 
+    .student-table tbody td {
+        padding-top: .9rem;
+        padding-bottom: .9rem;
+        border-color: #edf2f7;
+    }
+
     .student-name {
         font-weight: 700;
         color: #101828;
@@ -131,9 +206,15 @@
         background: #fff;
         min-width: 36px;
         height: 36px;
-        border-radius: 8px;
+        border-radius: 10px;
         color: #0b3d73;
         font-weight: 700;
+        transition: background .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .pagination-button:hover {
+        transform: translateY(-1px);
+        background: #eef6ff;
     }
 
     .pagination-button.active {
@@ -179,7 +260,7 @@
         <h1>Dashboard administrativo</h1>
         <p class="text-muted mb-0">Seguimiento institucional de riesgo estudiantil, tutorias y entrevistas.</p>
     </div>
-    <a href="{{ route('estudiantes.index') }}" class="btn btn-primary">
+    <a href="{{ route('estudiantes.index') }}" class="btn btn-primary dashboard-action">
         <i class="bi bi-upload"></i>
         Cargar estudiantes
     </a>
@@ -259,7 +340,7 @@
                         <h2 class="h5 fw-bold mb-0">Distribucion de riesgo</h2>
                         <div class="small text-muted">Ultima entrevista por estudiante</div>
                     </div>
-                    <span class="badge bg-primary-subtle text-primary">Semaforo</span>
+                    <span class="badge bg-primary-subtle text-primary panel-badge">Semaforo</span>
                 </div>
                 <div class="chart-box"><canvas id="riskChart"></canvas></div>
             </div>
@@ -273,7 +354,7 @@
                         <h2 class="h5 fw-bold mb-0">Riesgo por carrera</h2>
                         <div class="small text-muted">Comparativo por programa academico</div>
                     </div>
-                    <span class="badge bg-success-subtle text-success">Carreras</span>
+                    <span class="badge bg-success-subtle text-success panel-badge">Carreras</span>
                 </div>
                 <div class="chart-box"><canvas id="careerRiskChart"></canvas></div>
             </div>
@@ -287,7 +368,7 @@
                         <h2 class="h5 fw-bold mb-0">Entrevistas por periodo</h2>
                         <div class="small text-muted">Actividad registrada en el sistema</div>
                     </div>
-                    <span class="badge bg-warning-subtle text-warning-emphasis">Periodos</span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis panel-badge">Periodos</span>
                 </div>
                 <div class="chart-box"><canvas id="periodInterviewChart"></canvas></div>
             </div>
@@ -295,7 +376,7 @@
     </div>
 </div>
 
-<div class="card">
+<div class="card table-card">
     <div class="card-body">
         <div class="table-toolbar">
             <div>
@@ -309,7 +390,7 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table student-table align-middle">
+            <table class="table table-hover student-table align-middle mb-0">
                 <thead>
                     <tr>
                         <th><button class="sortable" type="button" data-sort="codigo">Codigo <i class="bi bi-arrow-down-up"></i></button></th>

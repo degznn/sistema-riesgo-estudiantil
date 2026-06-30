@@ -9,7 +9,8 @@
         justify-content: space-between;
         align-items: flex-end;
         gap: 16px;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
+        padding: 4px 0 2px;
     }
 
     .tutor-header h1 {
@@ -20,35 +21,53 @@
     }
 
     .metric-card {
-        min-height: 130px;
+        min-height: 148px;
         position: relative;
         overflow: hidden;
+        border: 0;
+        border-radius: 18px;
+        box-shadow: 0 18px 36px rgba(11, 61, 115, .08);
         animation: riseIn .4s ease both;
+        transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .metric-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 24px 46px rgba(11, 61, 115, .13);
     }
 
     .metric-card::after {
         content: "";
         position: absolute;
-        right: -30px;
-        bottom: -46px;
-        width: 110px;
-        height: 110px;
+        right: -40px;
+        bottom: -52px;
+        width: 136px;
+        height: 136px;
         border-radius: 50%;
-        background: rgba(15, 159, 110, .12);
+        background: rgba(8, 118, 201, .10);
+    }
+
+    .metric-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 4px;
+        background: linear-gradient(90deg, #0b3d73, #0f9f6e);
     }
 
     .metric-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 8px;
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
         display: grid;
         place-items: center;
         color: #fff;
-        font-size: 1.15rem;
+        font-size: 1.3rem;
+        box-shadow: 0 12px 22px rgba(11, 61, 115, .15);
     }
 
     .metric-value {
-        font-size: 1.9rem;
+        font-size: 2.1rem;
         font-weight: 800;
         color: #101828;
         line-height: 1;
@@ -66,12 +85,31 @@
     .bg-red { background: #d64242; }
     .bg-slate { background: #475467; }
 
+    .tutor-chart-card,
+    .tutor-table-card {
+        border: 0;
+        border-radius: 18px;
+        box-shadow: 0 18px 36px rgba(11, 61, 115, .08);
+    }
+
+    .panel-badge {
+        border-radius: 999px;
+        padding: .45rem .7rem;
+        font-weight: 700;
+    }
+
     .student-row {
         transition: background .15s ease;
     }
 
     .student-row:hover {
         background: #f7fbff;
+    }
+
+    .student-table tbody td {
+        padding-top: .9rem;
+        padding-bottom: .9rem;
+        border-color: #edf2f7;
     }
 
     .student-name {
@@ -94,6 +132,10 @@
             align-items: flex-start;
             flex-direction: column;
         }
+
+        .tutor-header .btn {
+            width: 100%;
+        }
     }
 </style>
 
@@ -113,7 +155,7 @@
         <h1>Panel del tutor</h1>
         <p class="text-muted mb-0">Seguimiento de tus estudiantes asignados y entrevistas registradas.</p>
     </div>
-    <a href="{{ route('entrevistas.index') }}" class="btn btn-primary">
+    <a href="{{ route('entrevistas.index') }}" class="btn btn-primary shadow-sm rounded-3 fw-semibold">
         <i class="bi bi-clipboard2-pulse-fill"></i>
         Ver entrevistas
     </a>
@@ -137,14 +179,14 @@
 
 <div class="row g-3">
     <div class="col-lg-4">
-        <div class="card h-100">
+        <div class="card h-100 tutor-chart-card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
                         <h2 class="h5 fw-bold mb-0">Resumen de riesgo</h2>
                         <div class="small text-muted">Solo estudiantes asignados</div>
                     </div>
-                    <span class="badge bg-primary-subtle text-primary">Tutor</span>
+                    <span class="badge bg-primary-subtle text-primary panel-badge">Tutor</span>
                 </div>
                 <div style="height: 270px">
                     <canvas id="tutorRiskChart"></canvas>
@@ -154,21 +196,21 @@
     </div>
 
     <div class="col-lg-8">
-        <div class="card">
+        <div class="card tutor-table-card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-3">
                     <div>
                         <h2 class="h5 fw-bold mb-0">Mis estudiantes</h2>
                         <div class="small text-muted">Listado operativo para registrar entrevistas</div>
                     </div>
-                    <a href="{{ route('estudiantes.index') }}" class="btn btn-outline-primary btn-sm">
+                    <a href="{{ route('estudiantes.index') }}" class="btn btn-outline-primary btn-sm rounded-3 fw-semibold">
                         <i class="bi bi-list-ul"></i>
                         Ver listado completo
                     </a>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table align-middle">
+                    <table class="table table-hover student-table align-middle mb-0">
                         <thead>
                             <tr>
                                 <th>Codigo</th>
