@@ -33,6 +33,8 @@ class EntrevistaController extends Controller
 
     public function store(EntrevistaRequest $request, Estudiante $estudiante)
     {
+        $this->authorize('create', [Entrevista::class, $estudiante]);
+
         $this->entrevistaService->registrar($estudiante, $request->validated());
 
         return redirect()->route('entrevistas.index')->with('success', 'Entrevista registrada correctamente.');

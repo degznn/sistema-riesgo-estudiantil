@@ -285,7 +285,7 @@
                     </a>
                     <a class="sidebar-link {{ request()->routeIs('estudiantes.*') ? 'active' : '' }}" href="{{ route('estudiantes.index') }}" title="Estudiantes">
                         <i class="bi bi-people-fill"></i>
-                        <span class="sidebar-text">Estudiantes</span>
+                        <span class="sidebar-text">{{ auth()->user()->hasRole('tutor') ? 'Mis estudiantes' : 'Estudiantes' }}</span>
                     </a>
                     <a class="sidebar-link {{ request()->routeIs('entrevistas.*') ? 'active' : '' }}" href="{{ route('entrevistas.index') }}" title="Entrevistas">
                         <i class="bi bi-clipboard2-pulse-fill"></i>

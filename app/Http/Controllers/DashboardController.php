@@ -17,6 +17,12 @@ class DashboardController extends Controller
     {
         $dashboard = $this->dashboardService->data($request);
 
+        if ($request->user()->hasRole('tutor')) {
+            return view('dashboard.tutor', [
+                ...$dashboard,
+            ]);
+        }
+
         return view('dashboard.index', [
             ...$dashboard,
             'tutores' => Tutor::with('user')->where('activo', true)->get(),

@@ -39,6 +39,9 @@ class DashboardService
         $kpis = [
             'total_estudiantes' => $estudiantes->count(),
             'total_tutores' => Tutor::where('activo', true)->count(),
+            'entrevistas_pendientes' => $estudiantes
+                ->filter(fn ($estudiante) => $estudiante->ultimaEntrevista === null)
+                ->count(),
             'entrevistas_realizadas' => $this->entrevistasParaUsuario($request)->count(),
             'riesgo_alto' => $resumen['Rojo'],
             'riesgo_medio' => $resumen['Ambar'],
